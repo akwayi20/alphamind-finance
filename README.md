@@ -459,4 +459,177 @@ To build the financial operating system of the Agentic Economy where AI agents c
 
 ## AlphaMind Finance
 
-**Autonomous Investing Powered by AI. Secured by GenLayer.**
+**Autonomous Investing Powered by AI. Secured by GenLayer.
+# GenLayer Intelligent Contracts
+
+## 1. Investment Mandate Compliance Contract
+
+### Purpose
+
+Ensures every AI trading or staking action complies with the user's natural-language investment mandate before execution.
+
+Unlike traditional smart contracts, this contract can interpret subjective instructions and financial policies written in plain English.
+
+### Example User Mandate
+
+> Maintain portfolio volatility below 12%, keep at least 30% of assets staked, avoid tokens with market caps below $100 million, and prioritize AI infrastructure projects.
+
+### Contract Responsibilities
+
+* Interpret natural-language investment mandates
+* Evaluate proposed AI agent actions
+* Analyze risk exposure
+* Validate asset eligibility
+* Check portfolio allocation constraints
+* Approve or reject transactions
+
+### Example Workflow
+
+```text
+User Mandate
+      ↓
+AI Agent Proposal
+      ↓
+GenLayer Validators Review
+      ↓
+Consensus Vote
+      ↓
+Approve / Reject
+```
+
+### Example Decision
+
+AI Agent proposes:
+
+* Buy TAO
+* Stake ETH
+* Sell SOL
+
+Validators evaluate:
+
+* Is TAO compliant with the mandate?
+* Does the trade increase volatility?
+* Is staking allocation preserved?
+* Are risk thresholds maintained?
+
+Consensus determines whether execution is allowed.
+
+### Why GenLayer?
+
+Traditional smart contracts cannot understand:
+
+* "Moderate risk"
+* "Prioritize AI infrastructure"
+* "Avoid highly speculative assets"
+
+GenLayer validators can evaluate these subjective conditions through decentralized AI consensus.
+
+---
+
+## 2. Autonomous Portfolio Rebalancing Contract
+
+### Purpose
+
+Allows AI agents to automatically rebalance portfolios while ensuring actions remain aligned with user objectives and market conditions.
+
+### Example User Goal
+
+> Maintain a balanced portfolio with 40% growth assets, 30% staking assets, 20% stablecoins, and 10% liquidity reserves.
+
+### Contract Responsibilities
+
+* Monitor portfolio drift
+* Evaluate market conditions
+* Review AI-generated rebalancing proposals
+* Assess execution quality
+* Verify compliance with target allocations
+* Validate risk-adjusted decisions
+
+### Example Workflow
+
+```text
+Portfolio Drift Detected
+        ↓
+AI Agent Creates Rebalance Plan
+        ↓
+GenLayer Validators Review Plan
+        ↓
+Consensus Approval
+        ↓
+Portfolio Rebalanced
+```
+
+### Example Rebalance Proposal
+
+Current Portfolio:
+
+* Growth Assets: 52%
+* Staking Assets: 18%
+* Stablecoins: 20%
+* Liquidity: 10%
+
+AI Recommendation:
+
+* Sell 12% Growth Assets
+* Stake additional ETH
+* Restore target allocation
+
+Validators independently determine:
+
+* Is the recommendation reasonable?
+* Does it improve compliance?
+* Does it introduce excessive risk?
+* Is execution cost justified?
+
+### Why GenLayer?
+
+Traditional smart contracts can execute predefined rules.
+
+GenLayer can evaluate:
+
+* Market context
+* Portfolio quality
+* Risk-adjusted reasoning
+* Execution fairness
+
+This enables truly intelligent autonomous portfolio management.
+
+---
+
+# Smart Contract Deployment
+
+## Contract 1
+
+```python
+InvestmentMandateContract
+```
+
+Deployed on GenLayer Testnet
+
+Purpose:
+Natural-language mandate enforcement and transaction validation.
+
+---
+
+## Contract 2
+
+```python
+PortfolioRebalancingContract
+```
+
+Deployed on GenLayer Testnet
+
+Purpose:
+Autonomous AI-driven portfolio optimization with validator oversight.
+
+---
+
+# AlphaMind Competitive Advantage
+
+Most DeFi applications automate execution.
+
+AlphaMind automates execution **and validates reasoning**.
+
+By combining AI agents with GenLayer's decentralized adjudication, AlphaMind creates a trustless investing platform where autonomous financial decisions remain transparent, accountable, and aligned with user objectives.
+
+
