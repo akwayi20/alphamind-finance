@@ -631,5 +631,535 @@ Most DeFi applications automate execution.
 AlphaMind automates execution **and validates reasoning**.
 
 By combining AI agents with GenLayer's decentralized adjudication, AlphaMind creates a trustless investing platform where autonomous financial decisions remain transparent, accountable, and aligned with user objectives.
+# 📜 AlphaMind Finance Smart Contracts
 
+> Intelligent Financial Contracts for Autonomous Investing on GenLayer
+
+AlphaMind Finance introduces two flagship GenLayer Intelligent Contracts that enable trustless autonomous investing through decentralized AI consensus.
+
+Unlike traditional smart contracts that only execute deterministic rules, these contracts allow decentralized AI validators to evaluate subjective financial decisions such as:
+
+- Risk tolerance
+- Portfolio quality
+- Market conditions
+- Investment mandates
+- Rebalancing decisions
+- Treasury policies
+
+---
+
+# 🏗 Contract Architecture
+
+```text
+User
+ │
+ ▼
+AI Agent
+ │
+ ▼
+Financial Proposal
+ │
+ ▼
+GenLayer Intelligent Contract
+ │
+ ▼
+Validator Consensus
+ │
+ ▼
+Blockchain Settlement
+```
+
+---
+
+# Contract 1: InvestmentMandateContract
+
+## Purpose
+
+Ensures every AI-generated financial action complies with a user's investment mandate before execution.
+
+---
+
+## Example User Mandate
+
+```text
+Maintain portfolio volatility below 12%.
+
+Keep at least 30% of assets staked.
+
+Avoid tokens with market caps below $100M.
+
+Prioritize AI infrastructure projects.
+```
+
+---
+
+## Capabilities
+
+### Natural Language Mandates
+
+Users define objectives in plain English.
+
+Example:
+
+```text
+Invest aggressively in AI assets while maintaining
+moderate portfolio risk and preserving staking exposure.
+```
+
+---
+
+### Trade Validation
+
+Before execution, validators verify:
+
+- Mandate compliance
+- Risk limits
+- Asset eligibility
+- Staking allocation
+- Portfolio impact
+
+---
+
+### Consensus-Based Approval
+
+Example:
+
+```text
+Validator A → Approve
+Validator B → Approve
+Validator C → Reject
+Validator D → Approve
+Validator E → Approve
+
+Result:
+4 / 5 Approved
+```
+
+Trade executes only after consensus.
+
+---
+
+# Solidity Contract
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+contract InvestmentMandateContract {
+
+    struct InvestmentMandate {
+        address owner;
+        string mandateText;
+        uint256 maxVolatility;
+        uint256 minStakingAllocation;
+        uint256 minMarketCap;
+        bool active;
+    }
+
+    struct TradeProposal {
+        string asset;
+        uint256 amount;
+        uint256 projectedVolatility;
+        uint256 projectedStakingAllocation;
+        uint256 assetMarketCap;
+    }
+
+    mapping(uint256 => InvestmentMandate) public mandates;
+
+    uint256 public mandateCounter;
+
+    event MandateCreated(
+        uint256 indexed mandateId,
+        address indexed owner
+    );
+
+    event TradeValidated(
+        uint256 indexed mandateId,
+        bool approved
+    );
+
+    function createMandate(
+        string memory mandateText,
+        uint256 maxVolatility,
+        uint256 minStakingAllocation,
+        uint256 minMarketCap
+    ) public returns(uint256)
+    {
+        mandateCounter++;
+
+        mandates[mandateCounter] = InvestmentMandate({
+            owner: msg.sender,
+            mandateText: mandateText,
+            maxVolatility: maxVolatility,
+            minStakingAllocation: minStakingAllocation,
+            minMarketCap: minMarketCap,
+            active: true
+        });
+
+        emit MandateCreated(
+            mandateCounter,
+            msg.sender
+        );
+
+        return mandateCounter;
+    }
+}
+```
+
+---
+
+# Contract 2: PortfolioRebalancingContract
+
+## Purpose
+
+Allows AI agents to automatically rebalance portfolios while remaining aligned with target allocations and risk policies.
+
+---
+
+## Example Target Allocation
+
+```text
+Growth Assets     40%
+Staking Assets    30%
+Stablecoins       20%
+Liquidity         10%
+```
+
+---
+
+## Capabilities
+
+### Portfolio Drift Detection
+
+Detects allocation deviations.
+
+Example:
+
+```text
+Growth Assets     52%
+Staking Assets    18%
+Stablecoins       20%
+Liquidity         10%
+```
+
+---
+
+### AI Rebalancing Proposals
+
+Agent recommendation:
+
+```text
+Sell Growth Assets
+Stake Additional ETH
+Restore Target Allocation
+```
+
+---
+
+### Validator Review
+
+Validators assess:
+
+- Portfolio quality
+- Execution fairness
+- Market context
+- Rebalancing efficiency
+- Risk impact
+
+---
+
+# Solidity Contract
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+contract PortfolioRebalancingContract {
+
+    struct PortfolioTarget {
+        uint256 growth;
+        uint256 staking;
+        uint256 stablecoin;
+        uint256 liquidity;
+    }
+
+    struct RebalanceProposal {
+        uint256 newGrowth;
+        uint256 newStaking;
+        uint256 newStablecoin;
+        uint256 newLiquidity;
+        uint256 estimatedCost;
+        uint256 riskScore;
+    }
+
+    mapping(address => PortfolioTarget)
+        public targets;
+
+    event TargetSet(
+        address indexed owner
+    );
+
+    function setTargetAllocation(
+        uint256 growth,
+        uint256 staking,
+        uint256 stablecoin,
+        uint256 liquidity
+    ) public
+    {
+        require(
+            growth +
+            staking +
+            stablecoin +
+            liquidity == 100,
+            "Allocation must equal 100%"
+        );
+
+        targets[msg.sender] =
+            PortfolioTarget(
+                growth,
+                staking,
+                stablecoin,
+                liquidity
+            );
+
+        emit TargetSet(msg.sender);
+    }
+}
+```
+
+---
+
+# 🧠 GenLayer Consensus Layer
+
+## Investment Validation
+
+```python
+@gl.consensus()
+def validate_trade(
+    mandate,
+    trade
+):
+    prompt = f"""
+    Evaluate whether this trade
+    complies with the investment mandate.
+
+    Mandate:
+    {mandate}
+
+    Trade:
+    {trade}
+
+    Return:
+    APPROVE or REJECT
+    """
+
+    return llm(prompt)
+```
+
+---
+
+## Portfolio Rebalancing Validation
+
+```python
+@gl.consensus()
+def evaluate_rebalance(
+    target,
+    proposal
+):
+    prompt = f"""
+    Determine if this portfolio
+    rebalance improves allocation quality.
+
+    Target Allocation:
+    {target}
+
+    Proposal:
+    {proposal}
+
+    Return:
+    APPROVE or REJECT
+    """
+
+    return llm(prompt)
+```
+
+---
+
+# 📦 Deployment Guide
+
+## Prerequisites
+
+Install Foundry:
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+
+foundryup
+```
+
+---
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-org/alphamind-finance.git
+
+cd alphamind-finance
+```
+
+---
+
+## Install Dependencies
+
+```bash
+forge install
+```
+
+---
+
+## Environment Variables
+
+Create:
+
+```bash
+.env
+```
+
+```env
+PRIVATE_KEY=YOUR_PRIVATE_KEY
+
+GENLAYER_RPC_URL=https://rpc.genlayer.xyz
+
+GENLAYER_CHAIN_ID=12345
+```
+
+---
+
+# Deployment Script
+
+Create:
+
+```text
+script/Deploy.s.sol
+```
+
+```solidity
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.24;
+
+import "forge-std/Script.sol";
+
+import "../src/InvestmentMandateContract.sol";
+import "../src/PortfolioRebalancingContract.sol";
+
+contract DeployScript is Script {
+
+    function run() external {
+
+        vm.startBroadcast();
+
+        InvestmentMandateContract mandate =
+            new InvestmentMandateContract();
+
+        PortfolioRebalancingContract rebalance =
+            new PortfolioRebalancingContract();
+
+        vm.stopBroadcast();
+
+        console.log(
+            "InvestmentMandateContract:",
+            address(mandate)
+        );
+
+        console.log(
+            "PortfolioRebalancingContract:",
+            address(rebalance)
+        );
+    }
+}
+```
+
+---
+
+# Deploy To GenLayer Testnet
+
+```bash
+forge script script/Deploy.s.sol \
+--rpc-url $GENLAYER_RPC_URL \
+--private-key $PRIVATE_KEY \
+--broadcast
+```
+
+---
+
+# Verify Contracts
+
+```bash
+forge verify-contract \
+<CONTRACT_ADDRESS> \
+src/InvestmentMandateContract.sol:InvestmentMandateContract
+```
+
+```bash
+forge verify-contract \
+<CONTRACT_ADDRESS> \
+src/PortfolioRebalancingContract.sol:PortfolioRebalancingContract
+```
+
+---
+
+# Repository Structure
+
+```text
+contracts/
+
+├── src/
+│   ├── InvestmentMandateContract.sol
+│   └── PortfolioRebalancingContract.sol
+
+├── script/
+│   └── Deploy.s.sol
+
+├── test/
+
+├── foundry.toml
+
+└── README.md
+```
+
+---
+
+# Security Considerations
+
+- Multi-signature treasury protection
+- Validator consensus verification
+- AI decision auditing
+- On-chain transparency
+- Risk threshold enforcement
+- Portfolio policy compliance
+
+---
+
+# Future Upgrades
+
+### v2
+
+- Cross-chain portfolio management
+- Autonomous treasury agents
+- Real-time risk scoring
+- Dynamic mandate updates
+
+### v3
+
+- Agent-to-agent investing
+- DAO treasury automation
+- Institutional portfolio infrastructure
+- Multi-validator AI governance
+
+---
+
+# AlphaMind Finance
+
+**Trustless Autonomous Investing Powered by AI and Secured by GenLayer**
 
